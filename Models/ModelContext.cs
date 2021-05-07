@@ -25,6 +25,8 @@ namespace psu_oracle_backEnd.Models
         public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Help> Helps { get; set; }
+        public virtual DbSet<Loantable> Loantables { get; set; }
+        public virtual DbSet<Marriagetable> Marriagetables { get; set; }
         public virtual DbSet<MviewAdvAjg> MviewAdvAjgs { get; set; }
         public virtual DbSet<MviewAdvFjg> MviewAdvFjgs { get; set; }
         public virtual DbSet<MviewAdvLevel> MviewAdvLevels { get; set; }
@@ -36,6 +38,9 @@ namespace psu_oracle_backEnd.Models
         public virtual DbSet<MviewLog> MviewLogs { get; set; }
         public virtual DbSet<MviewRecommendation> MviewRecommendations { get; set; }
         public virtual DbSet<MviewWorkload> MviewWorkloads { get; set; }
+        public virtual DbSet<Papertable> Papertables { get; set; }
+        public virtual DbSet<Paymenttable> Paymenttables { get; set; }
+        public virtual DbSet<Problemtable> Problemtables { get; set; }
         public virtual DbSet<ProductPriv> ProductPrivs { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<SchedulerJobArg> SchedulerJobArgs { get; set; }
@@ -344,6 +349,91 @@ namespace psu_oracle_backEnd.Models
                     .HasMaxLength(80)
                     .IsUnicode(false)
                     .HasColumnName("INFO");
+            });
+
+            modelBuilder.Entity<Loantable>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("LOANTABLE");
+
+                entity.Property(e => e.Confirmdate)
+                    .HasColumnType("DATE")
+                    .HasColumnName("CONFIRMDATE");
+
+                entity.Property(e => e.Depositdate)
+                    .HasColumnType("DATE")
+                    .HasColumnName("DEPOSITDATE");
+
+                entity.Property(e => e.Loanamount)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("LOANAMOUNT");
+
+                entity.Property(e => e.Loandate)
+                    .HasColumnType("DATE")
+                    .HasColumnName("LOANDATE");
+
+                entity.Property(e => e.Loantype)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("LOANTYPE");
+
+                entity.Property(e => e.Surety)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("SURETY");
+
+                entity.Property(e => e.UId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("U_ID");
+
+                entity.HasOne(d => d.UIdNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.UId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LOANTABLE");
+            });
+
+            modelBuilder.Entity<Marriagetable>(entity =>
+            {
+                entity.HasKey(e => e.UId)
+                    .HasName("MARRIAGETABLE_PK");
+
+                entity.ToTable("MARRIAGETABLE");
+
+                entity.Property(e => e.UId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("U_ID");
+
+                entity.Property(e => e.MFname)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("M_FNAME");
+
+                entity.Property(e => e.MLname)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("M_LNAME");
+
+                entity.Property(e => e.MPhone)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("M_PHONE");
+
+                entity.Property(e => e.MSalary)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("M_SALARY");
+
+                entity.Property(e => e.MTel)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("M_TEL");
+
+                entity.HasOne(d => d.UIdNavigation)
+                    .WithOne(p => p.Marriagetable)
+                    .HasForeignKey<Marriagetable>(d => d.UId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_USERTABLE");
             });
 
             modelBuilder.Entity<MviewAdvAjg>(entity =>
@@ -854,6 +944,111 @@ namespace psu_oracle_backEnd.Models
                 entity.Property(e => e.Workloadid)
                     .HasColumnType("NUMBER")
                     .HasColumnName("WORKLOADID");
+            });
+
+            modelBuilder.Entity<Papertable>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("PAPERTABLE");
+
+                entity.Property(e => e.Evidence)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("EVIDENCE");
+
+                entity.Property(e => e.Evidencedate)
+                    .HasColumnType("DATE")
+                    .HasColumnName("EVIDENCEDATE");
+
+                entity.Property(e => e.UId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("U_ID");
+
+                entity.HasOne(d => d.UIdNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.UId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PAPERTABLE");
+            });
+
+            modelBuilder.Entity<Paymenttable>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("PAYMENTTABLE");
+
+                entity.Property(e => e.Balance)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("BALANCE");
+
+                entity.Property(e => e.Batch)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("BATCH");
+
+                entity.Property(e => e.Batchamount)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("BATCHAMOUNT");
+
+                entity.Property(e => e.Lastpaid)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("LASTPAID");
+
+                entity.Property(e => e.Loanamount)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("LOANAMOUNT");
+
+                entity.Property(e => e.Timepaid)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("TIMEPAID");
+
+                entity.Property(e => e.Total)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("TOTAL");
+
+                entity.Property(e => e.UId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("U_ID");
+
+                entity.HasOne(d => d.UIdNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.UId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PAYMENTTABLE");
+            });
+
+            modelBuilder.Entity<Problemtable>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("PROBLEMTABLE");
+
+                entity.Property(e => e.Detail)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("DETAIL");
+
+                entity.Property(e => e.Loantype)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("LOANTYPE");
+
+                entity.Property(e => e.Surety)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("SURETY");
+
+                entity.Property(e => e.UId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("U_ID");
+
+                entity.HasOne(d => d.UIdNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.UId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PROBLEMTABLE");
             });
 
             modelBuilder.Entity<ProductPriv>(entity =>
