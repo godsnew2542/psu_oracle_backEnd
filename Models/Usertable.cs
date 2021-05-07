@@ -22,7 +22,5 @@ namespace psu_oracle_backEnd.Models
         public string UPhone { get; set; }
         public string UStatus { get; set; }
         public string UDivision { get; set; }
-
-        public virtual Marriagetable Marriagetable { get; set; }
     }
 }

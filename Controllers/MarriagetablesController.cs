@@ -86,7 +86,7 @@ namespace psu_oracle_backEnd.Controllers
             }
             catch (DbUpdateException)
             {
-                if (MarriagetableExists(marriagetable.UId))
+                if (MarriagetableExists((decimal)marriagetable.UId))
                 {
                     return Conflict();
                 }

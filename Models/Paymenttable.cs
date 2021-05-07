@@ -7,7 +7,8 @@ namespace psu_oracle_backEnd.Models
 {
     public partial class Paymenttable
     {
-        public decimal UId { get; set; }
+        public decimal KPaymentt { get; set; }
+        public decimal? UId { get; set; }
         public decimal? Loanamount { get; set; }
         public string Batch { get; set; }
         public decimal? Batchamount { get; set; }
@@ -15,7 +16,5 @@ namespace psu_oracle_backEnd.Models
         public string Timepaid { get; set; }
         public decimal? Total { get; set; }
         public decimal? Balance { get; set; }
-
-        public virtual Usertable UIdNavigation { get; set; }
     }
 }

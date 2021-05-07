@@ -353,9 +353,14 @@ namespace psu_oracle_backEnd.Models
 
             modelBuilder.Entity<Loantable>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.KLoan)
+                    .HasName("LOANTABLE_PK");
 
                 entity.ToTable("LOANTABLE");
+
+                entity.Property(e => e.KLoan)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("K_LOAN");
 
                 entity.Property(e => e.Confirmdate)
                     .HasColumnType("DATE")
@@ -378,32 +383,35 @@ namespace psu_oracle_backEnd.Models
                     .IsUnicode(false)
                     .HasColumnName("LOANTYPE");
 
-                entity.Property(e => e.Surety)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("SURETY");
+                entity.Property(e => e.SId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("S_ID");
+
+                entity.Property(e => e.SmId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("SM_ID")
+                    .HasDefaultValueSql("null");
 
                 entity.Property(e => e.UId)
                     .HasColumnType("NUMBER(38)")
                     .HasColumnName("U_ID");
 
-                entity.HasOne(d => d.UIdNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.UId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_LOANTABLE");
+                entity.Property(e => e.UmId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("UM_ID")
+                    .HasDefaultValueSql("null  ");
             });
 
             modelBuilder.Entity<Marriagetable>(entity =>
             {
-                entity.HasKey(e => e.UId)
+                entity.HasKey(e => e.KMarriage)
                     .HasName("MARRIAGETABLE_PK");
 
                 entity.ToTable("MARRIAGETABLE");
 
-                entity.Property(e => e.UId)
+                entity.Property(e => e.KMarriage)
                     .HasColumnType("NUMBER(38)")
-                    .HasColumnName("U_ID");
+                    .HasColumnName("K_MARRIAGE");
 
                 entity.Property(e => e.MFname)
                     .HasMaxLength(100)
@@ -429,11 +437,9 @@ namespace psu_oracle_backEnd.Models
                     .IsUnicode(false)
                     .HasColumnName("M_TEL");
 
-                entity.HasOne(d => d.UIdNavigation)
-                    .WithOne(p => p.Marriagetable)
-                    .HasForeignKey<Marriagetable>(d => d.UId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_USERTABLE");
+                entity.Property(e => e.UId)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("U_ID");
             });
 
             modelBuilder.Entity<MviewAdvAjg>(entity =>
@@ -948,9 +954,14 @@ namespace psu_oracle_backEnd.Models
 
             modelBuilder.Entity<Papertable>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.KPaper)
+                    .HasName("PAPERTABLE_PK");
 
                 entity.ToTable("PAPERTABLE");
+
+                entity.Property(e => e.KPaper)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("K_PAPER");
 
                 entity.Property(e => e.Evidence)
                     .HasMaxLength(100)
@@ -964,19 +975,18 @@ namespace psu_oracle_backEnd.Models
                 entity.Property(e => e.UId)
                     .HasColumnType("NUMBER(38)")
                     .HasColumnName("U_ID");
-
-                entity.HasOne(d => d.UIdNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.UId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PAPERTABLE");
             });
 
             modelBuilder.Entity<Paymenttable>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.KPaymentt)
+                    .HasName("PAYMENTTABLE_PK");
 
                 entity.ToTable("PAYMENTTABLE");
+
+                entity.Property(e => e.KPaymentt)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("K_PAYMENTT");
 
                 entity.Property(e => e.Balance)
                     .HasColumnType("NUMBER(38)")
@@ -1011,19 +1021,18 @@ namespace psu_oracle_backEnd.Models
                 entity.Property(e => e.UId)
                     .HasColumnType("NUMBER(38)")
                     .HasColumnName("U_ID");
-
-                entity.HasOne(d => d.UIdNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.UId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PAYMENTTABLE");
             });
 
             modelBuilder.Entity<Problemtable>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.KProblem)
+                    .HasName("PROBLEMTABLE_PK");
 
                 entity.ToTable("PROBLEMTABLE");
+
+                entity.Property(e => e.KProblem)
+                    .HasColumnType("NUMBER(38)")
+                    .HasColumnName("K_PROBLEM");
 
                 entity.Property(e => e.Detail)
                     .HasMaxLength(100)
@@ -1043,12 +1052,6 @@ namespace psu_oracle_backEnd.Models
                 entity.Property(e => e.UId)
                     .HasColumnType("NUMBER(38)")
                     .HasColumnName("U_ID");
-
-                entity.HasOne(d => d.UIdNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.UId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PROBLEMTABLE");
             });
 
             modelBuilder.Entity<ProductPriv>(entity =>

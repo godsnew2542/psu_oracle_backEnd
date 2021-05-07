@@ -16,6 +16,9 @@ namespace psu_oracle_backEnd
 {
     public class Startup
     {
+        /* ADD CORS*/
+        readonly string AllowAllOrigins = "AllowAllOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,9 +30,14 @@ namespace psu_oracle_backEnd
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddCors(c =>
+            /* ADD CORS*/
+            services.AddCors(options =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                options.AddPolicy(name: AllowAllOrigins,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                                  });
             });
 
 
@@ -41,10 +49,6 @@ namespace psu_oracle_backEnd
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-            app.UseCors(options => options.AllowAnyOrigin());
-
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -52,7 +56,12 @@ namespace psu_oracle_backEnd
 
             app.UseRouting();
 
+            /* ADD CORS*/
+            app.UseCors(AllowAllOrigins);
+
+
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
