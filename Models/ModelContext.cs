@@ -370,6 +370,11 @@ namespace psu_oracle_backEnd.Models
                     .HasColumnType("DATE")
                     .HasColumnName("DEPOSITDATE");
 
+                entity.Property(e => e.LStatus)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("L_STATUS");
+
                 entity.Property(e => e.Loanamount)
                     .HasColumnType("NUMBER(38)")
                     .HasColumnName("LOANAMOUNT");
@@ -1364,6 +1369,11 @@ namespace psu_oracle_backEnd.Models
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("U_TYPE");
+
+                entity.Property(e => e.UYearout)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("U_YEAROUT");
             });
 
             modelBuilder.HasSequence("LOGMNR_DIDS$");

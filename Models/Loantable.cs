@@ -17,5 +17,6 @@ namespace psu_oracle_backEnd.Models
         public DateTime? Depositdate { get; set; }
         public decimal? SmId { get; set; }
         public decimal? UmId { get; set; }
+        public string LStatus { get; set; }
     }
 }
