@@ -363,11 +363,13 @@ namespace psu_oracle_backEnd.Models
                     .HasColumnName("K_LOAN");
 
                 entity.Property(e => e.Confirmdate)
-                    .HasColumnType("DATE")
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
                     .HasColumnName("CONFIRMDATE");
 
                 entity.Property(e => e.Depositdate)
-                    .HasColumnType("DATE")
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
                     .HasColumnName("DEPOSITDATE");
 
                 entity.Property(e => e.LStatus)
@@ -380,7 +382,8 @@ namespace psu_oracle_backEnd.Models
                     .HasColumnName("LOANAMOUNT");
 
                 entity.Property(e => e.Loandate)
-                    .HasColumnType("DATE")
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
                     .HasColumnName("LOANDATE");
 
                 entity.Property(e => e.Loantype)

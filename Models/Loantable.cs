@@ -12,9 +12,9 @@ namespace psu_oracle_backEnd.Models
         public string Loantype { get; set; }
         public decimal? Loanamount { get; set; }
         public decimal? SId { get; set; }
-        public DateTime? Loandate { get; set; }
-        public DateTime? Confirmdate { get; set; }
-        public DateTime? Depositdate { get; set; }
+        public string Loandate { get; set; }
+        public string Confirmdate { get; set; }
+        public string Depositdate { get; set; }
         public decimal? SmId { get; set; }
         public decimal? UmId { get; set; }
         public string LStatus { get; set; }
