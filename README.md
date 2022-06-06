@@ -52,7 +52,7 @@ services.AddDbContext<ModelContextCentral>
 @inject IJSRuntime JS // JS
 ```
 
-# EX to page
+# to page
 
 ```C#
 private void Topage()
@@ -61,7 +61,7 @@ private void Topage()
 }
 ```
 
-# EX Parameter
+# Parameter
 
 ```C#
 @page "/page/{LoadID:decimal}" // .razor
@@ -70,7 +70,7 @@ private void Topage()
 public decimal LoadID { get; set; } = 0; // .cs
 ```
 
-# EX OnInitialized / OnAfterRenderAsync
+# OnInitialized / OnAfterRenderAsync
 
 ```C#
 protected  override Task OnInitializedAsync(){}
@@ -86,7 +86,7 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 }
 ```
 
-# EX Add/update/delete
+# Add/update/delete
 
 ```C#
 private async Task function(int RequestID){
@@ -103,7 +103,7 @@ private async Task function(int RequestID){
 }
 ```
 
-# EX \_Host.cshtml
+# \_Host.cshtml
 
 ```html
 <!-- css -->
@@ -137,4 +137,48 @@ private async Task function(int RequestID){
 
 <!-- icon -->
 <script defer src="~/js/icon/all.js"></script>
+```
+
+# other
+
+```C#
+private object[] data1 { get; set; }
+private DateTime Date = DateTime.Now;
+
+private void function(string StaffID){
+    if (!string.IsNullOrEmpty(StaffID)){
+        decimal[] Status = new[] { 6m, 7m, 8m, 9m, 80m, 81m, 82m};
+
+        ListTypeAgreement = _context.VLoanRequestContracts
+        .Where(c => Status.Contains(c.StatusId.Value) && c.StaffId == StaffID)
+        .ToList<VLoanRequestContract>();
+
+        if (ListTypeAgreement.Count != 0){
+            List<PieChartModel> listAgeementDetail = new List<PieChartModel>();
+            for (int i = 0;i< ListTypeAgreement.Count; i++){
+                var AgreementDetail = ListTypeAgreement[i];
+                PieChartModel PieC = new PieChartModel();
+                PieC.Type = AgreementDetail.LoanTypeName;
+                PieC.Value = AgreementDetail.LoanRequestLoanAmount;
+                listAgeementDetail.Add(PieC);
+            }
+            data1 = listAgeementDetail.ToArray();
+        }
+    }
+}
+
+private string DateLanguage_TH = "th-TH";
+private string DateLanguage_EN = "en-US";
+
+public string ChangeDate(DateTime oDate, string fomathDate, string language)
+{
+    string showDate = oDate.ToString(fomathDate, new CultureInfo(language));
+    return showDate;
+}
+
+public DateTime ConvertToDateTime(DateTime? date)
+{
+    DateTime oDate = Convert.ToDateTime(date);
+    return oDate;
+}
 ```
